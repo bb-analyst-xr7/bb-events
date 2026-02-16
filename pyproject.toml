@@ -9,6 +9,8 @@ dependencies = [
     "tabulate",
     "Pillow",
     "beautifulsoup4",
+    "matplotlib",
+    "numpy",
 ]
 
 [project.scripts]
@@ -19,6 +21,7 @@ bbinsider-normalize-buzzerbeater-periods = "bbinsider.cli:normalize_buzzerbeater
 bbinsider-team-info = "bbinsider.cli:team_info"
 bbinsider-team-buzzerbeaters = "bbinsider.cli:team_buzzerbeaters"
 bbinsider-debug-ot-buzzers = "bbinsider.cli:debug_ot_buzzers"
+bbinsider-team-shot-distance-hist = "bbinsider.cli:team_shot_distance_hist"
 
 [build-system]
 requires = ["uv_build>=0.8.2,<0.9.0"]
