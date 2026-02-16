@@ -178,6 +178,41 @@ def _save_hits(db_path: str, match_id: int, match_type: str | None, match_score,
 
 
 def _ensure_columns(cur: sqlite3.Cursor) -> None:
+    cur.execute(
+        """
+        CREATE TABLE IF NOT EXISTS buzzerbeaters (
+            match_id INTEGER,
+            team_id INTEGER,
+            team_name TEXT,
+            opponent_id INTEGER,
+            opponent_name TEXT,
+            player_id INTEGER,
+            player_name TEXT,
+            period TEXT,
+            game_clock INTEGER,
+            comment TEXT,
+            match_type TEXT,
+            is_home INTEGER,
+            event_kind TEXT,
+            shot_type TEXT,
+            shot_type_label TEXT,
+            shot_result TEXT,
+            free_throw_type TEXT,
+            shot_x INTEGER,
+            shot_y INTEGER,
+            shot_distance REAL,
+            shot_distance_ft REAL,
+            score_before_home INTEGER,
+            score_before_away INTEGER,
+            score_after_home INTEGER,
+            score_after_away INTEGER,
+            final_score_home INTEGER,
+            final_score_away INTEGER,
+            season INTEGER
+        )
+        """
+    )
+
     cur.execute("PRAGMA table_info(buzzerbeaters)")
     cols = {row[1] for row in cur.fetchall()}
     additions = {
@@ -202,6 +237,24 @@ def _ensure_columns(cur: sqlite3.Cursor) -> None:
         if name not in cols:
             cur.execute(f"ALTER TABLE buzzerbeaters ADD COLUMN {name} {coltype}")
 
+    # Ensure conflict target used by ON CONFLICT(...) exists on legacy DBs.
+    cur.execute("PRAGMA index_list(buzzerbeaters)")
+    indexes = [row[1] for row in cur.fetchall() if row[2]]
+    key_cols = ["match_id", "team_id", "player_id", "period", "game_clock"]
+    has_unique_key = False
+    for index_name in indexes:
+        cur.execute(f"PRAGMA index_info({index_name!r})")
+        cols_for_index = [row[2] for row in cur.fetchall()]
+        if cols_for_index == key_cols:
+            has_unique_key = True
+            break
+    if not has_unique_key:
+        cur.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS idx_buzzerbeaters_conflict_key
+            ON buzzerbeaters(match_id, team_id, player_id, period, game_clock)
+            """
+        )
 
 def _phase_message(console, message: str) -> None:
     if console is not None:
