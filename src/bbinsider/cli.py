@@ -34,3 +34,12 @@ def buzzerbeaters() -> None:
     # Load root-level buzzerbeaters.py so users can run from repo root without refactor.
     module = _load_module(Path.cwd() / "buzzerbeaters.py", "_bbinsider_buzzerbeaters")
     module.main()
+
+
+def normalize_buzzerbeater_periods() -> None:
+    # Load root-level normalize_buzzerbeater_periods.py from repo root.
+    module = _load_module(
+        Path.cwd() / "normalize_buzzerbeater_periods.py",
+        "_bbinsider_normalize_buzzerbeater_periods",
+    )
+    module.main()
