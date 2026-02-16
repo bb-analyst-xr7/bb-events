@@ -1,4 +1,4 @@
-# BB Insider
+# BB Events
 
 CLI tools for extracting match data and tracking buzzerbeaters.
 
@@ -15,11 +15,11 @@ CLI tools for extracting match data and tracking buzzerbeaters.
 
 These are the primary tracking commands for buzzerbeaters:
 
-1. `bbinsider-buzzerbeaters`: check one match for buzzerbeaters (read-only, no DB writes).
-2. `bbinsider-team-buzzerbeaters`: scan many matches and write/update `data/buzzerbeaters.db`.
-3. `bbinsider-buzzerbeater-descriptions`: read `data/buzzerbeaters.db` and render text/summary output.
+1. `bb-buzzerbeaters`: check one match for buzzerbeaters (read-only, no DB writes).
+2. `bb-team-buzzerbeaters`: scan many matches and write/update `data/buzzerbeaters.db`.
+3. `bb-buzzerbeater-descriptions`: read `data/buzzerbeaters.db` and render text/summary output.
 
-### `bbinsider-buzzerbeaters`
+### `bb-buzzerbeaters`
 
 Detect buzzerbeaters in one match.
 
@@ -32,10 +32,10 @@ Useful flags:
 Example (use your own match ID that has a buzzerbeater):
 
 ```bash
-uv run bbinsider-buzzerbeaters --matchid <MATCH_ID> --details
+uv run bb-buzzerbeaters --matchid <MATCH_ID> --details
 ```
 
-### `bbinsider-team-buzzerbeaters`
+### `bb-team-buzzerbeaters`
 
 Scan team matches and build/update buzzerbeater records in the local DB.
 
@@ -55,7 +55,7 @@ Option guide:
 Main usage (multi-season tracking with auto-detected start):
 
 ```bash
-uv run bbinsider-team-buzzerbeaters \
+uv run bb-team-buzzerbeaters \
   --teamid 142720 \
   --from-first-active \
   --auto-first-season \
@@ -82,18 +82,18 @@ First active match resolved.
 ![Season Progress TUI](docs/images/team-buzzerbeaters-tui.png)
 
 
-After this command runs, the DB will have a `buzzerbeaters` table with one row per detected buzzerbeater event, linked to matches/players/opponents. Next, use `bbinsider-buzzerbeater-descriptions` to query and render human-readable summaries (see next section).
+After this command runs, the DB will have a `buzzerbeaters` table with one row per detected buzzerbeater event, linked to matches/players/opponents. Next, use `bb-buzzerbeater-descriptions` to query and render human-readable summaries (see next section).
 
 Alternatively (explicit range):
 
 ```bash
-uv run bbinsider-team-buzzerbeaters \
+uv run bb-team-buzzerbeaters \
   --teamid 142720 \
   --season-from <SEASON_FROM> \
   --season-to <SEASON_TO>
 ```
 
-### `bbinsider-buzzerbeater-descriptions`
+### `bb-buzzerbeater-descriptions`
 
 Query the DB and render human-readable buzzerbeater lines and summaries.
 
@@ -122,13 +122,13 @@ Option guide:
 Example:
 
 ```bash
-uv run bbinsider-buzzerbeater-descriptions --teamid 142720 --summary
+uv run bb-buzzerbeater-descriptions --teamid 142720 --summary
 ```
 
 with first lines of output:
 
 ```text
-uv run bbinsider-buzzerbeater-descriptions --teamid 142720 --summary                                                                                                         
+uv run bb-buzzerbeater-descriptions --teamid 142720 --summary                                                                                                         
 In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS.TV [match=29629491] third quarter against fueg0 B.C [team=27726]: Antonio Peña Rubia [player=8350168] hit a two pointer elbow from 18.4 ft as time expired, turning the score from 49–82 to 49–84. [link=https://buzzerbeater.com/match/29629491/reportmatch.aspx?realTime=2155]
 
 In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS [match=29629553] third quarter against lewntes [team=88703]: Nikos Kastanakis [player=11177319] hit a three pointer wing from 25.7 ft as time expired, turning the score from 53–67 to 53–70. [link=https://buzzerbeater.com/match/29629553/reportmatch.aspx?realTime=2155]
@@ -141,7 +141,7 @@ In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in FRIENDLY [ma
 Example (compact table export):
 
 ```bash
-uv run bbinsider-buzzerbeater-descriptions \
+uv run bb-buzzerbeater-descriptions \
   --teamid 142720 \
   --verbosity 0 \
   --columns "match_id,player_id,game_clock,period"
@@ -181,7 +181,7 @@ Useful flags:
 uv run bbinsider --matchid <MATCH_ID> --print-stats --print-events
 ```
 
-### `bbinsider-team-shot-distance-hist`
+### `bb-team-shot-distance-hist`
 
 Generate 2PT/3PT distance histograms for recent team matches.
 
@@ -194,7 +194,7 @@ Useful flags:
 - `--out`
 
 ```bash
-uv run bbinsider-team-shot-distance-hist --teamid 142720 --count 20
+uv run bb-team-shot-distance-hist --teamid 142720 --count 20
 ```
 
 ### `bbinsider-shotchart`
