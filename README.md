@@ -8,7 +8,7 @@ CLI tools for extracting match data and tracking buzzerbeaters.
 2. Create a local `.env` in repo root:
    - `BB_USERNAME=...`
    - `BB_SECURITY_CODE=...`
-3. Run commands from repo root with `uv run <command> ...`
+3. No extra install needed! Just run commands with with `uv run <command> ...`
    - Full options for any command: `uv run <command> --help`
 
 ## Main Tracking Workflow (3 commands)
@@ -32,7 +32,7 @@ Useful flags:
 Example (use your own match ID that has a buzzerbeater):
 
 ```bash
-uv run bbinsider-buzzerbeaters --matchid <MATCH_ID_WITH_BUZZERBEATER> --details
+uv run bbinsider-buzzerbeaters --matchid <MATCH_ID> --details
 ```
 
 ### `bbinsider-team-buzzerbeaters`
@@ -51,10 +51,8 @@ Option guide:
   - With `--season-to`, sets the start from detected first season.
 - `--from-first-active`: for the first scanned season, start from the team's first active match instead of all completed matches. Useful for teams that debuted mid-season.
 - `--db <PATH>`: target SQLite database path (default `data/buzzerbeaters.db`).
-- `--tui`: show Rich progress UI (default on).
-- `--no-tui`: disable Rich progress UI.
 
-Example (multi-season tracking):
+Example (multi-season tracking with auto-detected start):
 
 ```bash
 uv run bbinsider-team-buzzerbeaters \
@@ -63,6 +61,8 @@ uv run bbinsider-team-buzzerbeaters \
   --auto-first-season \
   --season-to <SEASON>
 ```
+
+After this command runs, the DB will have a `buzzerbeaters` table with one row per detected buzzerbeater event, linked to matches/players/opponents. Next, use `bbinsider-buzzerbeater-descriptions` to query and render human-readable summaries (see next section).
 
 Example (explicit range):
 
@@ -159,3 +159,9 @@ Useful flags:
 ```bash
 uv run bbinsider-shotchart <SHOT_EVENT_TYPE> --out output/charts/shot_<SHOT_EVENT_TYPE>.png
 ```
+
+Acknowledgements:
+
+- BBAPI
+- BBInsider
+
