@@ -16,6 +16,8 @@ CLI utilities for BuzzerBeater match parsing, buzzerbeater detection, and team-l
    - `BB_SECURITY_CODE=...`
 3. Run commands with:
    - `uv run <command> ...`
+4. See command options:
+   - `uv run <command> --help`
 
 Example:
 
@@ -27,8 +29,8 @@ uv run bbinsider --matchid 123786926 --print-stats --print-events
 
 1. Parse one match and inspect output:
    - `uv run bbinsider --matchid 123786926 --print-stats --print-events`
-2. Detect buzzerbeaters for a specific match:
-   - `uv run bbinsider-buzzerbeaters --matchid 123786926 --details`
+2. Detect buzzerbeaters for a known buzzerbeater match:
+   - `uv run bbinsider-buzzerbeaters --matchid <MATCH_ID_WITH_BUZZERBEATER> --details`
 3. Check team metadata and first season hint:
    - `uv run bbinsider-team-info --teamid <TEAM_ID>`
 4. Build team buzzerbeater history across seasons:
@@ -39,17 +41,9 @@ uv run bbinsider --matchid 123786926 --print-stats --print-events
    - `uv run bbinsider-shotchart <MATCH_ID> --out output/charts/shot_<MATCH_ID>.png`
    - `uv run bbinsider-team-shot-distance-hist --teamid <TEAM_ID> --count 20`
 
-## Available Commands
+## Outputs And Privacy
 
-- `bbinsider` - main match parser/output command.
-- `bbinsider-shotchart` - generate a shot chart image from a match.
-- `bbinsider-buzzerbeaters` - detect buzzerbeaters for a match and store/query details.
-- `bbinsider-team-info` - fetch team metadata and first season estimate.
-- `bbinsider-team-buzzerbeaters` - scan team matches across seasons for buzzerbeaters.
-- `bbinsider-team-shot-distance-hist` - build team shot-distance histograms.
-- `bbinsider-buzzerbeater-descriptions` - render text descriptions from buzzerbeater DB rows.
-
-## Notes
-
-- Runtime output and local data are written under ignored paths (for example `output/` and `data/`).
-- Do not commit `.env` or any private exports/scrapes.
+- Match XML cache: `matches/report_<matchid>.xml`
+- Buzzerbeater DB: `data/buzzerbeaters.db`
+- Generated charts and private exports: `output/`
+- Keep `.env` local and never commit private exports/scrapes.
