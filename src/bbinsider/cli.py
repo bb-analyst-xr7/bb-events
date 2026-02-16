@@ -49,3 +49,12 @@ def team_info() -> None:
     # Load root-level team_info.py from repo root.
     module = _load_module(Path.cwd() / "team_info.py", "_bbinsider_team_info")
     module.main()
+
+
+def team_buzzerbeaters() -> None:
+    # Load root-level team_buzzerbeaters.py from repo root.
+    module = _load_module(
+        Path.cwd() / "team_buzzerbeaters.py",
+        "_bbinsider_team_buzzerbeaters",
+    )
+    module.main()
