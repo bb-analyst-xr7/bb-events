@@ -58,3 +58,9 @@ def team_buzzerbeaters() -> None:
         "_bbinsider_team_buzzerbeaters",
     )
     module.main()
+
+
+def debug_ot_buzzers() -> None:
+    # Load root-level debug_ot_buzzers.py from repo root.
+    module = _load_module(Path.cwd() / "debug_ot_buzzers.py", "_bbinsider_debug_ot_buzzers")
+    module.main()
