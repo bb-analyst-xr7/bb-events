@@ -159,6 +159,12 @@ def main() -> None:
     parser.add_argument("--player-id", type=int, default=None, help="Filter by player id")
     parser.add_argument("--only-outcome-change", action="store_true", help="Only buzzerbeaters that flipped to a win")
     parser.add_argument("--no-url", action="store_true", help="Disable BB forum tags and viewer link")
+    parser.add_argument(
+        "--link-domain",
+        choices=("com", "org"),
+        default="com",
+        help="Domain suffix for viewer links (default: com)",
+    )
     parser.add_argument("--summary", action="store_true", help="Print a summary at the end")
     parser.add_argument(
         "--top-players",
@@ -295,7 +301,7 @@ def main() -> None:
                 rt = _realtime_for_period(period)
                 match_id = row_dict.get("match_id")
                 if match_id is not None:
-                    viewer = f"https://buzzerbeater.org/match/{match_id}/reportmatch.aspx?realTime={rt}"
+                    viewer = f"https://buzzerbeater.{args.link_domain}/match/{match_id}/reportmatch.aspx?realTime={rt}"
                     desc += f" [link={viewer}]"
             print(desc)
             print()

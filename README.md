@@ -114,6 +114,7 @@ Option guide:
   - `--only-outcome-change`: only events that changed game state at the buzzer.
 - Link formatting:
   - `--no-url`: remove forum tags/viewer links from text.
+  - `--link-domain {com,org}`: choose link domain suffix (default: `com`).
 - Special report modes (return immediately with dedicated tables):
   - `--multi-buzzer-games`
   - `--multi-player-games`
@@ -128,13 +129,13 @@ with first lines of output:
 
 ```text
 uv run bbinsider-buzzerbeater-descriptions --teamid 142720 --summary                                                                                                         
-In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS.TV [match=29629491] third quarter against fueg0 B.C [team=27726]: Antonio Peña Rubia [player=8350168] hit a two pointer elbow from 18.4 ft as time expired, turning the score from 49–82 to 49–84. [link=https://buzzerbeater.org/match/29629491/reportmatch.aspx?realTime=2155]
+In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS.TV [match=29629491] third quarter against fueg0 B.C [team=27726]: Antonio Peña Rubia [player=8350168] hit a two pointer elbow from 18.4 ft as time expired, turning the score from 49–82 to 49–84. [link=https://buzzerbeater.com/match/29629491/reportmatch.aspx?realTime=2155]
 
-In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS [match=29629553] third quarter against lewntes [team=88703]: Nikos Kastanakis [player=11177319] hit a three pointer wing from 25.7 ft as time expired, turning the score from 53–67 to 53–70. [link=https://buzzerbeater.org/match/29629553/reportmatch.aspx?realTime=2155]
+In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.RS [match=29629553] third quarter against lewntes [team=88703]: Nikos Kastanakis [player=11177319] hit a three pointer wing from 25.7 ft as time expired, turning the score from 53–67 to 53–70. [link=https://buzzerbeater.com/match/29629553/reportmatch.aspx?realTime=2155]
 
-In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.SEMIFINAL [match=32604939] regulation against Harlems [team=88881]: Asimakis Kontis [player=11177331] hit a three pointer wing from 24.8 ft as time expired, turning the score from 109–103 to 109–106. [link=https://buzzerbeater.org/match/32604939/reportmatch.aspx?realTime=2875]
+In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in LEAGUE.SEMIFINAL [match=32604939] regulation against Harlems [team=88881]: Asimakis Kontis [player=11177331] hit a three pointer wing from 24.8 ft as time expired, turning the score from 109–103 to 109–106. [link=https://buzzerbeater.com/match/32604939/reportmatch.aspx?realTime=2875]
 
-In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in FRIENDLY [match=32829570] regulation against tromponiakos bc [team=27645]: Asimakis Kontis [player=11177331] hit a fade away from 4.9 ft as time expired, turning the score from 67–94 to 67–96. [link=https://buzzerbeater.org/match/32829570/reportmatch.aspx?realTime=2875]
+In season 15, Xeftilaikos [team=142720] hit an away buzzerbeater in FRIENDLY [match=32829570] regulation against tromponiakos bc [team=27645]: Asimakis Kontis [player=11177331] hit a fade away from 4.9 ft as time expired, turning the score from 67–94 to 67–96. [link=https://buzzerbeater.com/match/32829570/reportmatch.aspx?realTime=2875]
 ```
 
 Example (compact table export):
