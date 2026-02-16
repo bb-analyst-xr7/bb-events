@@ -31,15 +31,18 @@ uv run bbinsider --matchid 123786926 --print-stats --print-events
    - `uv run bbinsider --matchid 123786926 --print-stats --print-events`
 2. Detect buzzerbeaters for a known buzzerbeater match:
    - `uv run bbinsider-buzzerbeaters --matchid <MATCH_ID_WITH_BUZZERBEATER> --details`
-3. Check team metadata and first season hint:
-   - `uv run bbinsider-team-info --teamid <TEAM_ID>`
-4. Build team buzzerbeater history across seasons:
+3. Build team buzzerbeater history across seasons:
    - `uv run bbinsider-team-buzzerbeaters --teamid <TEAM_ID> --from-first-active --auto-first-season --season-to <SEASON>`
-5. Generate description text from the DB:
+4. Generate description text from the DB:
    - `uv run bbinsider-buzzerbeater-descriptions --teamid <TEAM_ID> --summary`
-6. Optional visual analysis:
-   - `uv run bbinsider-shotchart <MATCH_ID> --out output/charts/shot_<MATCH_ID>.png`
-   - `uv run bbinsider-team-shot-distance-hist --teamid <TEAM_ID> --count 20`
+
+Optional:
+
+- Team metadata lookup:
+  - `uv run bbinsider-team-info --teamid <TEAM_ID>`
+- Visual analysis:
+  - `uv run bbinsider-shotchart <MATCH_ID> --out output/charts/shot_<MATCH_ID>.png`
+  - `uv run bbinsider-team-shot-distance-hist --teamid <TEAM_ID> --count 20`
 
 ## Outputs And Privacy
 
