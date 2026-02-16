@@ -238,5 +238,5 @@ uv run bbinsider-shotchart <SHOT_EVENT_TYPE> --out output/charts/shot_<SHOT_EVEN
 
 Acknowledgements:
 
-- BBAPI
-- BBInsider
+- [BBAPI](http://bbapi.buzzerbeater.com/)
+- [BBInsider (upstream repository)](https://github.com/radszy/bbinsider)
