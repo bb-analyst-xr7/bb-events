@@ -1,6 +1,7 @@
 import argparse
 import os
 import sqlite3
+import sys
 import xml.etree.ElementTree as ET
 from datetime import date
 from pathlib import Path
@@ -202,6 +203,13 @@ def _ensure_columns(cur: sqlite3.Cursor) -> None:
             cur.execute(f"ALTER TABLE buzzerbeaters ADD COLUMN {name} {coltype}")
 
 
+def _phase_message(console, message: str) -> None:
+    if console is not None:
+        console.print(f"[dim]{message}[/dim]")
+    else:
+        print(message, file=sys.stderr, flush=True)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--teamid", type=int, required=True)
@@ -226,15 +234,19 @@ def main() -> None:
         help="Disable Rich TUI progress",
     )
     args = parser.parse_args()
+    console = Console(stderr=True) if args.tui and Console is not None else None
+    _phase_message(console, f"Starting team buzzerbeater scan for team {args.teamid}...")
     db_path = Path(args.db)
     db_path.parent.mkdir(parents=True, exist_ok=True)
 
+    _phase_message(console, "Loading environment and credentials...")
     _load_env()
     username = os.getenv("BB_USERNAME")
     security_code = os.getenv("BB_SECURITY_CODE")
     if not username or not security_code:
         raise SystemExit("Missing BB_USERNAME or BB_SECURITY_CODE in environment")
 
+    _phase_message(console, "Authenticating with BB API...")
     session = requests.Session()
     _login(session)
 
@@ -242,6 +254,7 @@ def main() -> None:
     seasons = []
     detected = None
     if args.auto_first_season:
+        _phase_message(console, "Auto-detecting first season from team history...")
         info = get_teaminfo(session, args.teamid)
         history = get_team_history_from_webpage(session, args.teamid)
         detected = first_season(history, info["team_name"])
@@ -264,6 +277,7 @@ def main() -> None:
             seasons = list(range(detected, current + 1))
         else:
             seasons = [current]
+    _phase_message(console, f"Resolved seasons to scan: {','.join(str(s) for s in seasons)}")
 
     total_hits = 0
     total_inserted = 0
@@ -273,6 +287,7 @@ def main() -> None:
     first_season_schedule = {}
 
     if args.from_first_active:
+        _phase_message(console, "Resolving first active match in the first scanned season...")
         # Derive first active match within the first season in list
         first_season_num = min(seasons)
         schedule = _schedule_matches(session, args.teamid, first_season_num)
@@ -289,9 +304,11 @@ def main() -> None:
             first_match = next(m for m in names_seen if m[2] == last_name)
             start_from_match = first_match[0]
             start_from_time = first_match[1]
+            _phase_message(console, "First active match resolved.")
+        else:
+            _phase_message(console, "Could not derive first active match; using full season scan.")
 
     skipped = 0
-    console = Console() if args.tui and Console is not None else None
     progress = None
     if args.tui and Progress is not None:
         progress = Progress(
