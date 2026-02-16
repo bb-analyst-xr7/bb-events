@@ -52,7 +52,7 @@ Option guide:
 - `--from-first-active`: for the first scanned season, start from the team's first active match instead of all completed matches. Useful for teams that debuted mid-season.
 - `--db <PATH>`: target SQLite database path (default `data/buzzerbeaters.db`).
 
-Example (multi-season tracking with auto-detected start):
+Main usage (multi-season tracking with auto-detected start):
 
 ```bash
 uv run bbinsider-team-buzzerbeaters \
@@ -64,7 +64,7 @@ uv run bbinsider-team-buzzerbeaters \
 
 After this command runs, the DB will have a `buzzerbeaters` table with one row per detected buzzerbeater event, linked to matches/players/opponents. Next, use `bbinsider-buzzerbeater-descriptions` to query and render human-readable summaries (see next section).
 
-Example (explicit range):
+Alternatively (explicit range):
 
 ```bash
 uv run bbinsider-team-buzzerbeaters \
