@@ -11,12 +11,6 @@ CLI tools for extracting match data and tracking buzzerbeaters.
 3. Run commands from repo root with `uv run <command> ...`
    - Full options for any command: `uv run <command> --help`
 
-If your machine blocks writes to the default uv cache, use:
-
-```bash
-UV_CACHE_DIR=./.uv-cache uv run <command> ...
-```
-
 ## Core Tracking Commands
 
 ### `bbinsider`
